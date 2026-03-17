@@ -92,10 +92,51 @@
     </style>
 </head>
 
-<body class="selection:bg-[#f0458b] selection:text-white overflow-x-hidden w-full relative pt-20">
+<body class="selection:bg-[#f0458b] selection:text-white overflow-x-hidden w-full relative pt-0 overflow-y-hidden">
+
+    <!-- Welcome Video Modal -->
+    <div id="welcome-video-modal"
+        class="fixed inset-0 z-[200] bg-black flex items-center justify-center transition-opacity duration-1000">
+        <video id="welcome-video" class="max-w-full max-h-full object-contain" autoplay muted playsinline>
+            <source src="ColaD1.mp4" type="video/mp4">
+        </video>
+        <!-- Top-right controls -->
+        <div class="absolute top-6 right-6 z-10 flex items-center gap-3">
+            <!-- Mute / Unmute Button -->
+            <button id="welcome-sound-btn" onclick="toggleWelcomeSound()"
+                class="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full transition-all"
+                title="เปิด/ปิดเสียง">
+                <!-- Muted icon (visible by default) -->
+                <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                    <line x1="23" y1="9" x2="17" y2="15" />
+                    <line x1="17" y1="9" x2="23" y2="15" />
+                </svg>
+                <!-- Unmuted icon (hidden by default) -->
+                <svg id="icon-unmuted" class="hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+                </svg>
+            </button>
+            <!-- Skip Button -->
+            <button onclick="closeWelcomeVideo()"
+                class="px-6 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-sm tracking-widest uppercase rounded-full transition-all flex items-center gap-2 group">
+                <span>Skip</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="group-hover:translate-x-1 transition-transform">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+    </div>
 
     <!-- Navbar -->
-    <nav class="fixed top-0 left-0 w-full z-50 bg-[#050505]/95 backdrop-blur-md border-b border-[#333] text-white">
+    <nav class="sticky top-0 left-0 w-full z-50 bg-[#050505] border-b border-[#333] text-white transition-all duration-300 transform translate-y-0"
+        id="navbar">
         <div class="container mx-auto px-4 relative">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
@@ -189,7 +230,7 @@
 
     <!-- Hero Slider -->
     <section id="hero-slider"
-        class="relative w-full aspect-video bg-[#050505] overflow-hidden group border-b border-[#333]"
+        class="relative w-full aspect-[4/3] lg:aspect-[16/9] xl:aspect-[2.39/1] bg-[#050505] overflow-hidden group border-b border-[#333]"
         style="touch-action: pan-y;">
         <div id="slider-track" class="flex h-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]">
         </div>
@@ -233,63 +274,73 @@
     </section>
 
     <!-- Policy Grid -->
-    <section class="py-20 bg-[#050505] relative overflow-hidden" id="policies">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-6xl font-black text-white mb-4">
-                    นโยบาย<span class="text-[#ffcb2f]">เปลี่ยน</span>ประเทศ
+    <section class="py-24 bg-[#050505] relative overflow-hidden" id="policies">
+        <!-- Abstract background elements for glass to blur -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div
+            class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-white/5 rounded-full blur-[150px] pointer-events-none">
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-20">
+                <span class="text-white/50 font-display text-sm tracking-[0.4em] uppercase mb-4 block">Our
+                    Policies</span>
+                <h2 class="text-5xl md:text-7xl font-black text-white mb-6 uppercase tracking-tight">
+                    นโยบาย<span class="text-white/70 font-light">เปลี่ยนประเทศ</span>
                 </h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">
+                <div class="w-16 h-1 bg-white/20 mx-auto mb-8 rounded-full"></div>
+                <p class="text-lg text-white/50 max-w-2xl mx-auto font-light leading-relaxed">
                     เรามุ่งมั่นที่จะสร้างสังคมที่เท่าเทียม ผ่านนโยบายที่ปฏิบัติได้จริงและยั่งยืน
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            <div class="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
                 <!-- Policy 1 -->
-                <div class="relative group cursor-pointer"
+                <div class="group cursor-pointer w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-20px)] flex-shrink-0 policy-card"
+                    data-neon="#f0458b"
                     onclick="openPolicyModal('STAR LEARNING', 'นโยบายเศรษฐกิจสร้างสรรค์ มุ่งเน้นการส่งเสริมอุตสาหกรรมสร้างสรรค์เพื่อขับเคลื่อนเศรษฐกิจ พัฒนาทักษะและโอกาสใหม่ๆ ให้กับประชาชนทุกคนอย่างเท่าเทียม', '#f0458b')">
                     <div
-                        class="absolute -inset-1 bg-[#f0458b] rounded-2xl opacity-0 group-hover:opacity-60 transition duration-300">
-                    </div>
-                    <div
-                        class="relative h-full bg-[#111] border border-[#333] rounded-xl p-8 flex flex-col items-center text-center hover:bg-[#1a1a1a] transition-colors">
+                        class="relative h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/10 rounded-2xl p-8 flex flex-col hover:bg-white/[0.05] hover:border-[#f0458b]/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(240,69,139,0.3)]">
                         <div
-                            class="mb-6 p-4 rounded-full bg-[#050505] text-white border border-[#333] group-hover:border-[#f0458b] transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            class="text-white/40 group-hover:text-[#f0458b] transition-colors duration-500 mb-8 drop-shadow-[0_0_8px_rgba(240,69,139,0)] group-hover:drop-shadow-[0_0_12px_rgba(240,69,139,0.8)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round">
                                 <polygon
                                     points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">STAR LEARNING</h3>
-                        <h3 class="text-md text-gray-400 mb-2 uppercase tracking-wide">จุดประกายความรู้</h3>
-                        <h3 class="text-md text-gray-400 mb-2 uppercase tracking-wide">สู่ศักยภาพที่แท้จริง</h3>
+                        <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-widest leading-tight">
+                            STAR<br /><span class="text-[#f0458b] brightness-125">LEARNING</span></h3>
+                        <p class="text-sm text-white/50 font-light leading-relaxed mb-8 flex-grow">
+                            จุดประกายความรู้<br />สู่ศักยภาพที่แท้จริง</p>
+
                         <div
-                            class="w-8 h-1 bg-[#333] rounded-full my-4 group-hover:w-full group-hover:bg-[#f0458b] transition-all duration-300">
+                            class="mt-auto flex items-center justify-between border-t border-white/10 group-hover:border-[#f0458b]/30 pt-6 transition-colors duration-500">
+                            <span
+                                class="text-xs text-white/30 uppercase tracking-[0.2em] group-hover:text-[#f0458b] transition-colors">Explore</span>
+                            <div
+                                class="w-8 h-8 rounded-full border border-white/10 group-hover:border-[#f0458b] flex items-center justify-center group-hover:bg-[#f0458b] group-hover:text-white transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(240,69,139,0.6)]">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </div>
                         </div>
-                        <button
-                            class="mt-auto text-sm text-gray-500 group-hover:text-white font-bold flex items-center gap-1 transition-colors">
-                            อ่านต่อ <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
+
                 <!-- Policy 2 -->
-                <div class="relative group cursor-pointer"
-                    onclick="openPolicyModal('สวัสดิการถ้วนหน้า', 'ระบบสวัสดิการที่ครอบคลุมทุกคนตั้งแต่เกิดจนแก่ เพื่อเป็นตาข่ายรองรับความเสี่ยงในชีวิตและตอกย้ำความเท่าเทียมในสังคม โดยไม่ทิ้งใครไว้เบื้องหลัง', '#ffcb2f')">
+                <div class="group cursor-pointer w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-20px)] flex-shrink-0 policy-card"
+                    data-neon="#00f0ff"
+                    onclick="openPolicyModal('STAR CREATIVE', 'ระบบสวัสดิการที่ครอบคลุมทุกคนตั้งแต่เกิดจนแก่ เพื่อเป็นตาข่ายรองรับความเสี่ยงในชีวิตและตอกย้ำความเท่าเทียมในสังคม โดยไม่ทิ้งใครไว้เบื้องหลัง', '#00f0ff')">
                     <div
-                        class="absolute -inset-1 bg-[#ffcb2f] rounded-2xl opacity-0 group-hover:opacity-60 transition duration-300">
-                    </div>
-                    <div
-                        class="relative h-full bg-[#111] border border-[#333] rounded-xl p-8 flex flex-col items-center text-center hover:bg-[#1a1a1a] transition-colors">
+                        class="relative h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/10 rounded-2xl p-8 flex flex-col hover:bg-white/[0.05] hover:border-[#00f0ff]/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(0,240,255,0.3)]">
                         <div
-                            class="mb-6 p-4 rounded-full bg-[#050505] text-white border border-[#333] group-hover:border-[#ffcb2f] transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            class="text-white/40 group-hover:text-[#00f0ff] transition-colors duration-500 mb-8 drop-shadow-[0_0_8px_rgba(0,240,255,0)] group-hover:drop-shadow-[0_0_12px_rgba(0,240,255,0.8)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                                 <circle cx="9" cy="7" r="4" />
@@ -297,34 +348,37 @@
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">STAR CREATIVE</h3>
-                        <h3 class="text-md text-gray-400 mb-2 uppercase tracking-wide">พื้นที่ของตัวตน ความคิด</h3>
-                        <h3 class="text-md text-gray-400 mb-2 uppercase tracking-wide">และการแสดงออก</h3>
+                        <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-widest leading-tight">
+                            STAR<br /><span class="text-[#00f0ff] brightness-125">CREATIVE</span></h3>
+                        <p class="text-sm text-white/50 font-light leading-relaxed mb-8 flex-grow">พื้นที่ของตัวตน
+                            ความคิด<br />และการแสดงออก</p>
+
                         <div
-                            class="w-8 h-1 bg-[#333] rounded-full my-4 group-hover:w-full group-hover:bg-[#ffcb2f] transition-all duration-300">
+                            class="mt-auto flex items-center justify-between border-t border-white/10 group-hover:border-[#00f0ff]/30 pt-6 transition-colors duration-500">
+                            <span
+                                class="text-xs text-white/30 uppercase tracking-[0.2em] group-hover:text-[#00f0ff] transition-colors">Explore</span>
+                            <div
+                                class="w-8 h-8 rounded-full border border-white/10 group-hover:border-[#00f0ff] flex items-center justify-center group-hover:bg-[#00f0ff] group-hover:text-black transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,240,255,0.6)]">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </div>
                         </div>
-                        <button
-                            class="mt-auto text-sm text-gray-500 group-hover:text-white font-bold flex items-center gap-1 transition-colors">
-                            อ่านต่อ <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
+
                 <!-- Policy 3 -->
-                <div class="relative group cursor-pointer"
-                    onclick="openPolicyModal('กฎหมายที่เป็นธรรม', 'ปฏิรูปกระบวนการยุติธรรมทั้งหมดให้มีความโปร่งใส ตรวจสอบได้ และเท่าเทียมกันสำหรับประชาชนทุกคนโดยไม่มีข้อยกเว้น', '#af71b0')">
+                <div class="group cursor-pointer w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-20px)] flex-shrink-0 policy-card"
+                    data-neon="#af71b0"
+                    onclick="openPolicyModal('STAR POWER', 'ปฏิรูปกระบวนการยุติธรรมทั้งหมดให้มีความโปร่งใส ตรวจสอบได้ และเท่าเทียมกันสำหรับประชาชนทุกคนโดยไม่มีข้อยกเว้น', '#af71b0')">
                     <div
-                        class="absolute -inset-1 bg-[#af71b0] rounded-2xl opacity-0 group-hover:opacity-60 transition duration-300">
-                    </div>
-                    <div
-                        class="relative h-full bg-[#111] border border-[#333] rounded-xl p-8 flex flex-col items-center text-center hover:bg-[#1a1a1a] transition-colors">
+                        class="relative h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/10 rounded-2xl p-8 flex flex-col hover:bg-white/[0.05] hover:border-[#af71b0]/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(175,113,176,0.3)]">
                         <div
-                            class="mb-6 p-4 rounded-full bg-[#050505] text-white border border-[#333] group-hover:border-[#af71b0] transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            class="text-white/40 group-hover:text-[#af71b0] transition-colors duration-500 mb-8 drop-shadow-[0_0_8px_rgba(175,113,176,0)] group-hover:drop-shadow-[0_0_12px_rgba(175,113,176,0.8)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round">
                                 <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
                                 <polyline points="14 2 14 8 20 8" />
@@ -333,34 +387,37 @@
                                 <line x1="10" x2="8" y1="9" y2="9" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">STAR POWER</h3>
-                        <h3 class="text-md text-gray-400 mb-2 uppercase tracking-wide">พลังทีม พลังใจ พลังการแข่งขัน
-                        </h3>
+                        <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-widest leading-tight">
+                            STAR<br /><span class="text-[#af71b0] brightness-125">POWER</span></h3>
+                        <p class="text-sm text-white/50 font-light leading-relaxed mb-8 flex-grow">พลังทีม
+                            พลังใจ<br />พลังการแข่งขัน</p>
+
                         <div
-                            class="w-8 h-1 bg-[#333] rounded-full my-4 group-hover:w-full group-hover:bg-[#af71b0] transition-all duration-300">
+                            class="mt-auto flex items-center justify-between border-t border-white/10 group-hover:border-[#af71b0]/30 pt-6 transition-colors duration-500">
+                            <span
+                                class="text-xs text-white/30 uppercase tracking-[0.2em] group-hover:text-[#af71b0] transition-colors">Explore</span>
+                            <div
+                                class="w-8 h-8 rounded-full border border-white/10 group-hover:border-[#af71b0] flex items-center justify-center group-hover:bg-[#af71b0] group-hover:text-white transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(175,113,176,0.6)]">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </div>
                         </div>
-                        <button
-                            class="mt-auto text-sm text-gray-500 group-hover:text-white font-bold flex items-center gap-1 transition-colors">
-                            อ่านต่อ <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
+
                 <!-- Policy 4 -->
-                <div class="relative group cursor-pointer"
-                    onclick="openPolicyModal('สิ่งแวดล้อมยั่งยืน', 'จัดการปัญหาสิ่งแวดล้อมอย่างเป็นระบบ ทั้งปัญหาฝุ่นควันและขยะ เพื่อส่งต่อโลกที่สะอาดและยั่งยืนให้คนรุ่นหลังต่อไป', '#f0458b')">
+                <div class="group cursor-pointer w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-20px)] flex-shrink-0 policy-card"
+                    data-neon="#39ff14"
+                    onclick="openPolicyModal('STAR CONNECT', 'จัดการปัญหาสิ่งแวดล้อมอย่างเป็นระบบ ทั้งปัญหาฝุ่นควันและขยะ เพื่อส่งต่อโลกที่สะอาดและยั่งยืนให้คนรุ่นหลังต่อไป', '#39ff14')">
                     <div
-                        class="absolute -inset-1 bg-[#f0458b] rounded-2xl opacity-0 group-hover:opacity-60 transition duration-300">
-                    </div>
-                    <div
-                        class="relative h-full bg-[#111] border border-[#333] rounded-xl p-8 flex flex-col items-center text-center hover:bg-[#1a1a1a] transition-colors">
+                        class="relative h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/10 rounded-2xl p-8 flex flex-col hover:bg-white/[0.05] hover:border-[#39ff14]/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(57,255,20,0.2)]">
                         <div
-                            class="mb-6 p-4 rounded-full bg-[#050505] text-white border border-[#333] group-hover:border-[#f0458b] transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            class="text-white/40 group-hover:text-[#39ff14] transition-colors duration-500 mb-8 drop-shadow-[0_0_8px_rgba(57,255,20,0)] group-hover:drop-shadow-[0_0_12px_rgba(57,255,20,0.8)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10" />
                                 <line x1="2" x2="22" y1="12" y2="12" />
@@ -368,67 +425,69 @@
                                     d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">STAR CONNECT</h3>
-                        <h3 class="text-md text-gray-400 mb-2 uppercase tracking-wide">เชื่อมเครือข่าย สร้างโอกาส</h3>
-                        <h3 class="text-md text-gray-400 mb-2 uppercase tracking-wide">เปิดโลกกว้าง</h3>
+                        <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-widest leading-tight">
+                            STAR<br /><span class="text-[#39ff14] brightness-125">CONNECT</span></h3>
+                        <p class="text-sm text-white/50 font-light leading-relaxed mb-8 flex-grow">เชื่อมเครือข่าย
+                            สร้างโอกาส<br />เปิดโลกกว้าง</p>
+
                         <div
-                            class="w-8 h-1 bg-[#333] rounded-full my-4 group-hover:w-full group-hover:bg-[#f0458b] transition-all duration-300">
+                            class="mt-auto flex items-center justify-between border-t border-white/10 group-hover:border-[#39ff14]/30 pt-6 transition-colors duration-500">
+                            <span
+                                class="text-xs text-white/30 uppercase tracking-[0.2em] group-hover:text-[#39ff14] transition-colors">Explore</span>
+                            <div
+                                class="w-8 h-8 rounded-full border border-white/10 group-hover:border-[#39ff14] flex items-center justify-center group-hover:bg-[#39ff14] group-hover:text-black transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(57,255,20,0.6)]">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </div>
                         </div>
-                        <button
-                            class="mt-auto text-sm text-gray-500 group-hover:text-white font-bold flex items-center gap-1 transition-colors">
-                            อ่านต่อ <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
+
                 <!-- Policy 5 -->
-                <div class="relative group cursor-pointer"
-                    onclick="openPolicyModal('กระจายอำนาจ', 'คืนอำนาจและงบประมาณให้กับท้องถิ่น เพื่อให้คนในพื้นที่มีสิทธิ์ในการออกแบบการพัฒนาและการจัดการงบประมาณด้วยตนเอง', '#ffcb2f')">
+                <div class="group cursor-pointer w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-20px)] flex-shrink-0 policy-card"
+                    data-neon="#ffcb2f"
+                    onclick="openPolicyModal('STAR CARE', 'คืนอำนาจและงบประมาณให้กับท้องถิ่น เพื่อให้คนในพื้นที่มีสิทธิ์ในการออกแบบการพัฒนาและการจัดการงบประมาณด้วยตนเอง', '#ffcb2f')">
                     <div
-                        class="absolute -inset-1 bg-[#ffcb2f] rounded-2xl opacity-0 group-hover:opacity-60 transition duration-300">
-                    </div>
-                    <div
-                        class="relative h-full bg-[#111] border border-[#333] rounded-xl p-8 flex flex-col items-center text-center hover:bg-[#1a1a1a] transition-colors">
+                        class="relative h-full bg-white/[0.03] backdrop-blur-[40px] border border-white/10 rounded-2xl p-8 flex flex-col hover:bg-white/[0.05] hover:border-[#ffcb2f]/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,203,47,0.3)]">
                         <div
-                            class="mb-6 p-4 rounded-full bg-[#050505] text-white border border-[#333] group-hover:border-[#ffcb2f] transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            class="text-white/40 group-hover:text-[#ffcb2f] transition-colors duration-500 mb-8 drop-shadow-[0_0_8px_rgba(255,203,47,0)] group-hover:drop-shadow-[0_0_12px_rgba(255,203,47,0.8)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round">
                                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">STAR CARE</h3>
-                        <h3 class="text-md text-gray-400 mb-2 uppercase tracking-wide">ดูแลใจ ดูแลชีวิต</h3>
-                        <h3 class="text-md text-gray-400 mb-2 uppercase tracking-wide">เพื่อการเรียนรู้ที่ยั่งยืน</h3>
+                        <h3 class="text-xl font-bold text-white mb-4 uppercase tracking-widest leading-tight">
+                            STAR<br /><span class="text-[#ffcb2f] brightness-125">CARE</span></h3>
+                        <p class="text-sm text-white/50 font-light leading-relaxed mb-8 flex-grow">ดูแลใจ
+                            ดูแลชีวิต<br />เพื่อการเรียนรู้ที่ยั่งยืน</p>
+
                         <div
-                            class="w-8 h-1 bg-[#333] rounded-full my-4 group-hover:w-full group-hover:bg-[#ffcb2f] transition-all duration-300">
+                            class="mt-auto flex items-center justify-between border-t border-white/10 group-hover:border-[#ffcb2f]/30 pt-6 transition-colors duration-500">
+                            <span
+                                class="text-xs text-white/30 uppercase tracking-[0.2em] group-hover:text-[#ffcb2f] transition-colors">Explore</span>
+                            <div
+                                class="w-8 h-8 rounded-full border border-white/10 group-hover:border-[#ffcb2f] flex items-center justify-center group-hover:bg-[#ffcb2f] group-hover:text-black transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(255,203,47,0.6)]">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                </svg>
+                            </div>
                         </div>
-                        <button
-                            class="mt-auto text-sm text-gray-500 group-hover:text-white font-bold flex items-center gap-1 transition-colors">
-                            อ่านต่อ <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-12 text-center">
+            <div class="mt-20 text-center">
                 <a href="#"
-                    class="inline-flex items-center gap-2 px-8 py-3 border-2 border-[#ffcb2f] text-[#ffcb2f] font-bold uppercase tracking-wider hover:bg-[#ffcb2f] hover:text-black transition-all duration-300 rounded-full group">
+                    class="inline-flex items-center gap-4 px-10 py-4 bg-white/5 border border-white/10 backdrop-blur-xl text-white font-light tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-500 rounded-full group">
                     อ่านนโยบายเพิ่มเติม
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="group-hover:translate-x-1 transition-transform">
-                        <path d="M5 12h14" />
-                        <path d="m12 5 7 7-7 7" />
-                    </svg>
+                    <div class="w-6 h-px bg-white group-hover:bg-black transition-colors"></div>
                 </a>
             </div>
         </div>
@@ -461,20 +520,19 @@
                     <div
                         class="group relative w-full max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-2xl z-10 rounded-sm">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop"
-                                alt="Executive 2"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Lomnhao.png" alt="Executive 2"
+                                class="w-full h-full object-cover duration-700 block"><!--filter grayscale group-hover:grayscale-0 transition-all-->
                         </div>
                         <div
                             class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black via-black/80 to-transparent">
                             <h4
-                                class="text-2xl font-black text-white uppercase mb-1 group-hover:text-[#ffcb2f] transition-colors">
-                                นางสาวศิริกัญญา ตันสกุล</h4>
-                            <p class="text-[#f0458b] font-display text-sm uppercase tracking-widest">รองหัวหน้าพรรค</p>
+                                class="text-2xl font-black text-white text-center uppercase mb-1 group-hover:text-[#ffcb2f] transition-colors">
+                                นายพงศ์พิพัฒน์ น้อยตา</h4>
+                            <!--p class="text-[#f0458b] font-display text-sm uppercase tracking-widest">หัวหน้าพรรค</p-->
                         </div>
-                        <div
+                        <!--div
                             class="absolute top-4 right-4 bg-[#f0458b] text-white text-xs font-bold px-2 py-1 uppercase shadow-lg">
-                            Key Person</div>
+                            Key Person</div-->
                     </div>
                 </div>
             </div>
@@ -495,18 +553,17 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Four.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <!-- ย่อตัวหนังสือบนมือถือไม่ให้ล้นการ์ด -->
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นายสมชาย ใจดี</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นายกันตินันท์ เหล็กจีน</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายกฎหมาย</p>
+                                อุปนายกฝ่ายกิจการภายใน</p>
                         </div>
                     </div>
 
@@ -514,17 +571,16 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Pink.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นางสาวสมหญิง รักไทย</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นางสาวสวัสดี ค่ะ</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายสื่อสารองค์กร</p>
+                                อุปนายกฝ่ายกิจการภายนอก</p>
                         </div>
                     </div>
 
@@ -532,17 +588,16 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Nam-Ing.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นายวิชัย กล้าหาญ</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นางสาวสวัสดี ค่ะ</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายนโยบาย</p>
+                                ประธานฝ่ายเลขานุการ</p>
                         </div>
                     </div>
 
@@ -550,17 +605,16 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Tangkwa.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นางสาวรัตนา มั่นคง</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นางสาวกุลนัดดา ลำเพยพล</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายการเงิน</p>
+                                ประธานฝ่ายเหรัญญิก</p>
                         </div>
                     </div>
 
@@ -568,17 +622,16 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Rodjeep.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นายศักดิ์ดา พลัง</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นางสาวณัชทกานต์ บัวบาน</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายเครือข่าย</p>
+                                ประธานฝ่ายส่งเสริมวิชาการและทะเบียน</p>
                         </div>
                     </div>
 
@@ -586,17 +639,16 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1974&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Nine.png" class="w-full h-full object-cover filter duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นางสาวมาลี สีสวย</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นางสาวนันท์นภัส บุญมี</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายรณรงค์</p>
+                                ประธานฝ่ายส่งเสริมกิจกรรมและนันทนาการ</p>
                         </div>
                     </div>
 
@@ -604,17 +656,16 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1520697517317-08192323e721?q=80&w=1974&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Prompt.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นายก้องเกียรติ ยิ่งใหญ่</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นายภูชิตณรงค์ เนตรคำยวง</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายยุทธศาสตร์</p>
+                                ประธานฝ่ายศิลปะและวัฒนธรรม</p>
                         </div>
                     </div>
 
@@ -622,17 +673,16 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="First.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นางสาววารี ใสสะอาด</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นายภัทรพล เจริญศรี</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายต่างประเทศ</p>
+                                ประธานฝ่ายโสตสารสนเทศและเทคโนโลยี</p>
                         </div>
                     </div>
 
@@ -640,17 +690,16 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=1998&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Stang.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นายปัญญา รอบรู้</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นายณัฐดนัย นางแย้ม</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายข้อมูล</p>
+                                ประธานฝ่ายประสานงาน</p>
                         </div>
                     </div>
 
@@ -658,17 +707,50 @@
                     <div
                         class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1974&auto=format&fit=crop"
-                                class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 block">
+                            <img src="Fern.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
-                                class="text-[10px] sm:text-sm md:text-lg font-bold text-white mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
-                                นางสาวดาริน สวยงาม</h5>
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นางสาววิลากานต์ หงษ์ทอง</h5>
                             <p
                                 class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
-                                ฝ่ายเทคโนโลยี</p>
+                                ประธานฝ่ายสวัสดิการ</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 11 -->
+                    <div
+                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
+                            <img src="Pao.png" class="w-full h-full object-cover duration-700 block">
+                        </div>
+                        <div
+                            class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
+                            <h5
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นางสาวฐากูร ดั้งดอนบม</h5>
+                            <p
+                                class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
+                                ประธานฝ่ายส่งเสริมกีฬา</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 13 -->
+                    <div
+                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
+                            <img src="Guy.png" class="w-full h-full object-cover duration-700 block">
+                        </div>
+                        <div
+                            class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
+                            <h5
+                                class="text-[10px] sm:text-sm md:text-lg font-bold text-[#ffcb2f] mb-0.5 md:mb-1 group-hover:text-[#ffcb2f] transition-colors truncate">
+                                นายสวัสดี ครับ</h5>
+                            <p
+                                class="text-[#f0458b] font-display text-[8px] sm:text-[10px] md:text-xs uppercase tracking-widest truncate">
+                                ประธานฝ่ายอาคารและสถานที่</p>
                         </div>
                     </div>
 
@@ -842,27 +924,37 @@
 
     <!-- Policy Modal -->
     <div id="policy-modal"
-        class="fixed inset-0 z-[100] hidden items-center justify-center opacity-0 transition-opacity duration-300">
+        class="fixed inset-0 z-[100] hidden items-center justify-center opacity-0 transition-opacity duration-500">
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-black/40" onclick="closePolicyModal()"></div>
+        <div class="absolute inset-0 bg-black/80" onclick="closePolicyModal()"></div>
         <!-- Modal Content -->
-        <div class="relative w-full max-w-lg px-4 flex justify-center">
+        <div class="relative w-full max-w-xl px-4 flex justify-center">
             <div id="modal-content"
-                class="bg-[#111] border border-[#333] rounded-2xl p-8 shadow-2xl transform scale-95 transition-transform duration-300 relative w-full overflow-hidden">
-                <div id="modal-glow" class="absolute -inset-1 rounded-2xl opacity-20 transition duration-300 z-0">
+                class="bg-white/5 backdrop-blur-[60px] border border-white/10 rounded-3xl p-10 md:p-14 shadow-[0_30px_60px_rgba(0,0,0,0.6)] transform scale-95 transition-all duration-500 relative w-full overflow-hidden text-center">
+
+                <!-- Abstract interior glow -->
+                <div id="modal-glow-bg"
+                    class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-white/5 blur-[80px] pointer-events-none rounded-full transition-colors duration-500">
                 </div>
+
                 <div class="relative z-10">
                     <button onclick="closePolicyModal()"
-                        class="absolute -top-2 -right-2 text-gray-500 hover:text-white bg-[#222] hover:bg-[#333] rounded-full p-2 transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        class="absolute -top-4 -right-4 text-white/40 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-full p-3 transition-all duration-300 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="group-hover:rotate-90 transition-transform duration-300">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
                         </svg>
                     </button>
-                    <h3 id="modal-title" class="text-2xl font-black text-white mb-4 uppercase tracking-wide mt-2"></h3>
-                    <div id="modal-divider" class="w-12 h-1 rounded-full mb-6"></div>
-                    <p id="modal-desc" class="text-gray-400 leading-relaxed text-lg"></p>
+
+                    <span class="text-white/30 text-xs tracking-[0.3em] uppercase mb-4 block font-display">Policy
+                        Details</span>
+                    <h3 id="modal-title"
+                        class="text-3xl md:text-4xl font-black text-white mb-6 uppercase tracking-widest leading-tight">
+                    </h3>
+                    <div id="modal-divider" class="w-16 h-px bg-white/20 mx-auto mb-8"></div>
+                    <p id="modal-desc" class="text-white/60 leading-relaxed text-lg font-light"></p>
                 </div>
             </div>
         </div>
@@ -870,11 +962,37 @@
 
     <!-- JavaScript Logic -->
     <script>
+        // Welcome Video Logic
+        const welcomeModal = document.getElementById('welcome-video-modal');
+        const welcomeVideo = document.getElementById('welcome-video');
+
+        function closeWelcomeVideo() {
+            welcomeModal.classList.add('opacity-0');
+            welcomeVideo.pause();
+            setTimeout(() => {
+                welcomeModal.style.display = 'none';
+                document.body.classList.remove('overflow-y-hidden');
+            }, 1000);
+        }
+
+        function toggleWelcomeSound() {
+            const iconMuted = document.getElementById('icon-muted');
+            const iconUnmuted = document.getElementById('icon-unmuted');
+            welcomeVideo.muted = !welcomeVideo.muted;
+            if (welcomeVideo.muted) {
+                iconMuted.classList.remove('hidden');
+                iconUnmuted.classList.add('hidden');
+            } else {
+                iconMuted.classList.add('hidden');
+                iconUnmuted.classList.remove('hidden');
+            }
+        }
+
+        // Close when video ends naturally
+        welcomeVideo.addEventListener('ended', closeWelcomeVideo);
+
         const HERO_SLIDES = [
-            { id: 1, image: 'test2.png', title: 'ELECTION 2026', subtitle: 'พลิกโฉมอนาคต', link: '#' },
-            { id: 2, image: 'Card2.png', title: 'ON TOUR', subtitle: 'คาราวานทั่วไทย', link: '#' },
-            { id: 3, image: 'Card3.png', title: 'THE SPEECH', subtitle: 'เวทีปราศรัยใหญ่', link: '#' },
-            { id: 4, image: 'Card4.png', title: 'OUR PROMISE', subtitle: 'สัญญานโยบาย', link: '#' }
+            { id: 1, image: 'Backdrop.png', title: 'วิทยาลัยการปกครองท้องถิ่น', subtitle: 'COLA STAR NEXT', link: '#' },
         ];
 
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -934,10 +1052,21 @@
                 </div>
             `).join('');
 
-            sliderDotsContainer.innerHTML = HERO_SLIDES.map((_, index) => `
-                <button class="w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 relative bg-white/50 hover:bg-white" 
-                        onclick="goToSlide(${index})"></button>
-            `).join('');
+            if (HERO_SLIDES.length <= 1) {
+                sliderDotsContainer.style.display = 'none';
+                sliderProgress.style.display = 'none';
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                sliderDotsContainer.innerHTML = HERO_SLIDES.map((_, index) => `
+                    <button class="w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 relative bg-white/50 hover:bg-white" 
+                            onclick="goToSlide(${index})"></button>
+                `).join('');
+                sliderDotsContainer.style.display = 'flex';
+                sliderProgress.style.display = 'block';
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
 
             updateSliderUI();
         }
@@ -1020,10 +1149,16 @@
         const modalDivider = document.getElementById('modal-divider');
 
         function openPolicyModal(title, desc, color) {
-            modalTitle.textContent = title;
+            const titleParts = title.split(' ');
+            modalTitle.innerHTML = `${titleParts[0]}<br/><span style="color: ${color}; filter: drop-shadow(0 0 12px ${color}80) brightness(1.25);">${titleParts[1] || ''}</span>`;
             modalDesc.textContent = desc;
-            modalGlow.style.backgroundColor = color;
+
+            const glowBg = document.getElementById('modal-glow-bg');
+            if (glowBg) glowBg.style.backgroundColor = color + '40'; // 25% opacity
             modalDivider.style.backgroundColor = color;
+            modalDivider.style.boxShadow = `0 0 15px ${color}`;
+            modalContent.style.borderColor = color + '40';
+            modalContent.style.boxShadow = `0 30px 60px rgba(0,0,0,0.6), 0 0 40px ${color}20`;
 
             policyModal.classList.remove('hidden');
             policyModal.classList.add('flex');
@@ -1052,6 +1187,92 @@
                 document.body.style.overflow = '';
             }, 300);
         }
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        // Add a placeholder to prevent jump when navbar becomes fixed
+        const navbarPlaceholder = document.createElement('div');
+        navbar.parentNode.insertBefore(navbarPlaceholder, navbar);
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                // When scrolling down, make it a floating navbar
+                navbar.classList.add('bg-[#050505]/95', 'backdrop-blur-md', 'shadow-lg', 'fixed', 'top-0', 'w-full');
+                navbar.classList.remove('bg-[#050505]', 'sticky', 'relative');
+
+                // Show placeholder to keep the space
+                navbarPlaceholder.style.height = navbar.offsetHeight + 'px';
+                navbarPlaceholder.style.display = 'block';
+            } else {
+                // When at the top, make it solidly push the content down
+                navbar.classList.add('bg-[#050505]', 'sticky', 'relative');
+                navbar.classList.remove('bg-[#050505]/95', 'backdrop-blur-md', 'shadow-lg', 'fixed', 'top-0', 'w-full');
+
+                // Hide placeholder
+                navbarPlaceholder.style.display = 'none';
+            }
+        });
+
+        // Mobile scroll gimmick: neon cards activate when scrolling into center viewport
+        if (window.matchMedia("(hover: none)").matches) {
+            const cards = document.querySelectorAll('.policy-card');
+            window.addEventListener('scroll', () => {
+                const center = window.innerHeight / 2;
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const cardCenter = rect.top + rect.height / 2;
+                    const dist = Math.abs(cardCenter - center);
+                    const inner = card.firstElementChild;
+
+                    if (inner) {
+                        const iconContainer = inner.querySelector('div:first-of-type');
+                        const neonText = inner.querySelector('span');
+                        const bottomBtn = inner.querySelector('div.w-8.h-8');
+                        const bottomText = inner.querySelector('span.text-xs');
+
+                        if (dist < 250) {
+                            const intensity = 1 - (dist / 250);
+                            const color = card.dataset.neon;
+
+                            inner.style.transform = `translateY(-${8 * intensity}px)`;
+                            inner.style.borderColor = `${color}${Math.floor(intensity * 128).toString(16).padStart(2, '0')}`;
+                            inner.style.boxShadow = `0 0 ${30 * intensity}px ${color}${Math.floor(intensity * 76).toString(16).padStart(2, '0')}`;
+                            inner.style.backgroundColor = `rgba(255, 255, 255, ${0.03 + (0.02 * intensity)})`;
+
+                            if (iconContainer) {
+                                iconContainer.style.color = color;
+                                iconContainer.style.filter = `drop-shadow(0 0 ${12 * intensity}px ${color}cc)`;
+                            }
+                            if (bottomText) bottomText.style.color = color;
+                            if (bottomBtn) {
+                                bottomBtn.style.backgroundColor = color;
+                                bottomBtn.style.borderColor = color;
+                                bottomBtn.style.color = '#fff';
+                                bottomBtn.style.boxShadow = `0 0 ${15 * intensity}px ${color}99`;
+                            }
+                        } else {
+                            inner.style.transform = '';
+                            inner.style.borderColor = '';
+                            inner.style.boxShadow = '';
+                            inner.style.backgroundColor = '';
+
+                            if (iconContainer) {
+                                iconContainer.style.color = '';
+                                iconContainer.style.filter = '';
+                            }
+                            if (bottomText) bottomText.style.color = '';
+                            if (bottomBtn) {
+                                bottomBtn.style.backgroundColor = '';
+                                bottomBtn.style.borderColor = '';
+                                bottomBtn.style.color = '';
+                                bottomBtn.style.boxShadow = '';
+                            }
+                        }
+                    }
+                });
+            }, { passive: true });
+        }
+
+
     </script>
 </body>
 
