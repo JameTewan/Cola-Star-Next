@@ -98,7 +98,8 @@
     <!-- Welcome Video Modal -->
     <div id="welcome-video-modal"
         class="fixed inset-0 z-[200] bg-black flex items-center justify-center transition-opacity duration-1000">
-        <video id="welcome-video" class="max-w-full max-h-full object-contain" autoplay muted playsinline>
+        <video poster="Backdrop.png" controls id="welcome-video" class="max-w-full max-h-full object-contain" autoplay
+            muted playsinline>
             <source src="ColaD1.mp4" type="video/mp4">
         </video>
         <!-- Top-right controls -->
@@ -538,25 +539,23 @@
                 </div>
             </div>
 
-            <!-- Subsection 2: Heads of Departments (10 pax -> 3 Columns Everywhere) -->
-            <div>
+            <!-- Subsection 2: อุปนายก (2 people) -->
+            <div class="mb-24">
                 <div class="text-center mb-10">
                     <h3 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-wide relative inline-block">
-                        ประธานฝ่ายปฏิบัติการ
-                        <div class="w-12 h-1 bg-[#f0458b] mx-auto mt-3"></div>
+                        อุปนายก
+                        <div class="w-12 h-1 bg-[#00f0ff] mx-auto mt-3"></div>
                     </h3>
                 </div>
 
-                <!-- บังคับ 3 คอลัมน์ ทุกขนาดหน้าจอ (grid-cols-3) เพื่อให้มือถือเป็น 3 แถวด้วย -->
-                <div class="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6">
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-6 max-w-5xl mx-auto">
 
-                    <!-- Head Item 1 -->
+                    <!-- อุปนายก 1 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="Four.png" class="w-full h-full object-cover duration-700 block">
                         </div>
-                        <!-- ย่อตัวหนังสือบนมือถือไม่ให้ล้นการ์ด -->
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
                             <h5
@@ -568,11 +567,11 @@
                         </div>
                     </div>
 
-                    <!-- Item 2 -->
+                    <!-- อุปนายก 2 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="Pink.png" class="w-full h-full object-cover duration-700 block">
+                            <img src="Nam-Ing.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
@@ -585,11 +584,25 @@
                         </div>
                     </div>
 
-                    <!-- Item 3 -->
+                </div>
+            </div>
+
+            <!-- Subsection 3: ประธานฝ่าย (10 people) -->
+            <div>
+                <div class="text-center mb-10">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-wide relative inline-block">
+                        ประธานฝ่าย
+                        <div class="w-12 h-1 bg-[#f0458b] mx-auto mt-3"></div>
+                    </h3>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-6 max-w-5xl mx-auto">
+
+                    <!-- ประธานฝ่าย 1 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
-                            <img src="Nam-Ing.png" class="w-full h-full object-cover duration-700 block">
+                            <img src="Pink.png" class="w-full h-full object-cover duration-700 block">
                         </div>
                         <div
                             class="w-full p-2 md:p-4 text-center border-t border-[#333] z-10 bg-[#111] flex flex-col justify-center flex-grow">
@@ -602,9 +615,9 @@
                         </div>
                     </div>
 
-                    <!-- Item 4 -->
+                    <!-- ประธานฝ่าย 2 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="Tangkwa.png" class="w-full h-full object-cover duration-700 block">
                         </div>
@@ -619,9 +632,9 @@
                         </div>
                     </div>
 
-                    <!-- Item 5 -->
+                    <!-- ประธานฝ่าย 3 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="Rodjeep.png" class="w-full h-full object-cover duration-700 block">
                         </div>
@@ -636,9 +649,9 @@
                         </div>
                     </div>
 
-                    <!-- Item 6 -->
+                    <!-- ประธานฝ่าย 4 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="Nine.png" class="w-full h-full object-cover filter duration-700 block">
                         </div>
@@ -653,9 +666,9 @@
                         </div>
                     </div>
 
-                    <!-- Item 7 -->
+                    <!-- ประธานฝ่าย 5 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="Prompt.png" class="w-full h-full object-cover duration-700 block">
                         </div>
@@ -670,9 +683,9 @@
                         </div>
                     </div>
 
-                    <!-- Item 8 -->
+                    <!-- ประธานฝ่าย 6 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="First.png" class="w-full h-full object-cover duration-700 block">
                         </div>
@@ -687,9 +700,9 @@
                         </div>
                     </div>
 
-                    <!-- Item 9 -->
+                    <!-- ประธานฝ่าย 7 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="Stang.png" class="w-full h-full object-cover duration-700 block">
                         </div>
@@ -704,9 +717,9 @@
                         </div>
                     </div>
 
-                    <!-- Item 10 -->
+                    <!-- ประธานฝ่าย 8 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="Fern.png" class="w-full h-full object-cover duration-700 block">
                         </div>
@@ -721,9 +734,9 @@
                         </div>
                     </div>
 
-                    <!-- Item 11 -->
+                    <!-- ประธานฝ่าย 9 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="Pao.png" class="w-full h-full object-cover duration-700 block">
                         </div>
@@ -738,9 +751,9 @@
                         </div>
                     </div>
 
-                    <!-- Item 13 -->
+                    <!-- ประธานฝ่าย 10 -->
                     <div
-                        class="group relative w-full overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
+                        class="group relative w-[calc(50%-4px)] sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] max-w-md overflow-hidden bg-[#111] border border-[#333] hover:border-[#f0458b] transition-all duration-300 shadow-lg rounded-sm flex flex-col">
                         <div class="w-full aspect-[4/5] overflow-hidden bg-[#050505]">
                             <img src="Guy.png" class="w-full h-full object-cover duration-700 block">
                         </div>
@@ -839,87 +852,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#000] border-t border-[#222] text-white pt-16 pb-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div class="col-span-1 md:col-span-1">
-                    <div class="flex items-center gap-2 mb-6">
-                        <img src="Logo.png" alt="Logo" class="h-8 w-auto object-contain">
-                    </div>
-                    <p class="text-gray-500 text-sm mb-6">
-                        พรรคประชาชน <br />
-                        เพื่อสิทธิเสรีภาพ และความเสมอภาค <br />
-                        ของคนไทยทุกคน
-                    </p>
-                    <div class="flex gap-4">
-                        <svg class="w-5 h-5 text-gray-400 hover:text-[#3b5998] cursor-pointer transition-colors"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-gray-400 hover:text-[#1da1f2] cursor-pointer transition-colors"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-                        </svg>
-                        <svg class="w-5 h-5 text-gray-400 hover:text-[#e1306c] cursor-pointer transition-colors"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                        </svg>
-                        <svg class="w-5 h-5 text-gray-400 hover:text-[#ff0000] cursor-pointer transition-colors"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
-                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
-                        </svg>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-lg mb-6 text-[#ffcb2f]">เกี่ยวกับเรา</h4>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li class="hover:text-white cursor-pointer transition-colors">ประวัติพรรค</li>
-                        <li class="hover:text-white cursor-pointer transition-colors">โครงสร้างบริหาร</li>
-                        <li class="hover:text-white cursor-pointer transition-colors">รายงานการเงิน</li>
-                        <li class="hover:text-white cursor-pointer transition-colors">ร่วมงานกับเรา</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-lg mb-6 text-[#f0458b]">สมาชิกสัมพันธ์</h4>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li class="hover:text-white cursor-pointer transition-colors">สมัครสมาชิก</li>
-                        <li class="hover:text-white cursor-pointer transition-colors">บริจาค</li>
-                        <li class="hover:text-white cursor-pointer transition-colors">ร้องเรียน</li>
-                        <li class="hover:text-white cursor-pointer transition-colors">ติดต่อเรา</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-lg mb-6 text-[#af71b0]">รับข่าวสาร</h4>
-                    <p class="text-xs text-gray-500 mb-4">ไม่พลาดทุกความเคลื่อนไหวทางการเมือง</p>
-                    <div class="flex">
-                        <input type="email" placeholder="อีเมลของคุณ"
-                            class="bg-[#111] border border-[#333] text-white px-4 py-2 w-full focus:outline-none focus:border-[#af71b0]" />
-                        <button
-                            class="bg-[#af71b0] px-4 font-bold uppercase hover:bg-[#fff] hover:text-black transition-colors">ส่ง</button>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="border-t border-[#222] pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-                <p>&copy; 2026 People's Party. All Rights Reserved.</p>
-                <div class="flex gap-6 mt-4 md:mt-0">
-                    <span class="hover:text-gray-400 cursor-pointer transition-colors">นโยบายความเป็นส่วนตัว</span>
-                    <span class="hover:text-gray-400 cursor-pointer transition-colors">ข้อตกลงการใช้งาน</span>
-                </div>
-            </div>
+    <footer class="text-white pt-16 pb-8">
+        <div class="border-t border-[#222] w-full pt-8 flex justify-center items-center text-xs text-gray-600">
+            <p>&copy; 2026 Cola Star Next. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -993,9 +928,9 @@
         welcomeVideo.addEventListener('ended', closeWelcomeVideo);
 
         const HERO_SLIDES = [
-            { id: 1, image: 'Backdrop.png', link: '#' },
+            { id: 1, image: 'Backdrop.png', title: 'วิทยาลัยการปกครองท้องถิ่น', subtitle: 'COLA STAR NEXT', link: '#' },
         ];
-        // title: 'วิทยาลัยการปกครองท้องถิ่น', subtitle: 'COLA STAR NEXT',
+
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileSubmenuBtn = document.getElementById('mobile-submenu-btn');
@@ -1045,9 +980,7 @@
                     </a>
                 </div>
             `).join('');
-            //<div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90"></div>
-            //<span class="inline-block bg-[#ffcb2f] text-black font-black px-3 py-1 mb-4 text-sm md:text-base tracking-widest uppercase transform -skew-x-12"> ${slide.title} </span>
-            //<h2 class="text-4xl md:text-7xl font-black text-white font-display uppercase leading-none drop-shadow-xl select-none"> ${slide.subtitle} </h2>
+
             if (HERO_SLIDES.length <= 1) {
                 sliderDotsContainer.style.display = 'none';
                 sliderProgress.style.display = 'none';
